@@ -1,0 +1,411 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.6" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, par l {comp lblError:::::x, seq l {comp lblGraphicFormat:::::x, space :::p, comp btnUpdate:::p::p}, comp tabPane::l::1011:x}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, par b {comp lblGraphicFormat::b:p::p, comp btnUpdate::b:p::p}, space :::p, comp lblError:::::p, space :::p, comp tabPane::::510:x, space :::p}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "lblError"
+				"foreground": new java.awt.Color( 168, 0, 0, 255 )
+				"preferredSize": new java.awt.Dimension( 987, 17 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "lblGraphicFormat"
+				"preferredSize": new java.awt.Dimension( 817, 17 )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnUpdate"
+				"text": "Update"
+				"preferredSize": new java.awt.Dimension( 151, 25 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "update", true ) )
+			} )
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabPane"
+				"preferredSize": new java.awt.Dimension( 1024, 508 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :::p, comp scrollPaneNametableSummary:::p::p, space ::37:x, comp imgNametable:::p::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {comp scrollPaneNametableSummary:::p::p, comp imgNametable:::p::p}, space :::x}}"
+				} ) {
+					name: "tabNametable"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "imgNametable"
+						"preferredSize": new java.awt.Dimension( 618, 458 )
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPaneNametableSummary"
+						"preferredSize": new java.awt.Dimension( 344, 200 )
+						add( new FormComponent( "javax.swing.JTextArea" ) {
+							name: "txtNametableSummary"
+							"editable": false
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Nametable"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq t {space :::p, par l {comp panel3::l:p::p, comp scrollPaneTileLayout::l:p::p, comp panel4::l:p::p, seq l {par l {comp label4:::p::p, comp label5::l:p::p}, space :p:94:p, par t {comp txtTileWidth:::p::p, comp txtTileHeight:::p::p}}}, space :::x, comp scrollPaneTileset:::p::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {seq {par b {comp label4::b:p::p, comp txtTileWidth::b:p::p}, space :::p, par b {comp label5::b:p::p, comp txtTileHeight::b:p::p}, space s:::p, comp panel3:::p::p, space u:::p, comp panel4:::p::p, space u:::p, comp scrollPaneTileLayout:::p::p}, comp scrollPaneTileset::::458:x}, space :::x}}"
+				} ) {
+					name: "tabTiles"
+					"preferredSize": new java.awt.Dimension( 1024, 180 )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPaneTileset"
+						"preferredSize": new java.awt.Dimension( 272, 461 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "imgTileset"
+							"verticalAlignment": 1
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
+						"rows": 4
+					} ) {
+						name: "panel3"
+						"preferredSize": new java.awt.Dimension( 339, 124 )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "cbxTileRemoveDuplicate"
+							"text": "Remove Duplicates"
+							"selected": true
+							"rolloverSelectedIcon": sfield com.jformdesigner.model.FormObject NULL_VALUE
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "cbxTileVerticalFlip"
+							"text": "Vertical Flip"
+							"selected": true
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "cbxTileHorizontalFlip"
+							"text": "Horizontal Flip"
+							"selected": true
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "cbxTileUseSuperImage"
+							"text": "Use Same Image as Nametable / Scrolltable"
+							"selected": true
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPaneTileLayout"
+						"preferredSize": new java.awt.Dimension( 325, 53 )
+						add( new FormComponent( "javax.swing.JTextPane" ) {
+							name: "txtTileLayout"
+							"text": "(0,2048)"
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
+						"rows": 3
+					} ) {
+						name: "panel4"
+						"preferredSize": new java.awt.Dimension( 309, 71 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"text": "Tile Layout (Advanced!)"
+							"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label2"
+							"text": "- Set range as (start index, end index)"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"text": "- You can chain ranges... (0,448) (506, 507)"
+						} )
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "txtTileWidth"
+						"text": "8"
+						"preferredSize": new java.awt.Dimension( 118, 31 )
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "txtTileHeight"
+						"text": "8"
+						"preferredSize": new java.awt.Dimension( 118, 31 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label4"
+						"text": "Tile Width In Pixels:"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label5"
+						"text": "Tile Height In Pixels:"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Tiles"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq t {space :::p, comp scrollPaneMetatileSummary:::p::p, space ::383:x, comp scrollPaneMetatiles:::p::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {comp scrollPaneMetatileSummary:::p::p, comp scrollPaneMetatiles::::458:x}, space :::p}}"
+				} ) {
+					name: "tabMetatiles"
+					"preferredSize": new java.awt.Dimension( 1024, 180 )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPaneMetatiles"
+						"preferredSize": new java.awt.Dimension( 272, 461 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "imgMetatiles"
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPaneMetatileSummary"
+						"preferredSize": new java.awt.Dimension( 344, 200 )
+						add( new FormComponent( "javax.swing.JTextArea" ) {
+							name: "txtMetatileSummary"
+							"editable": false
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Metatiles"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq t {space :::p, par l {comp panel5:::p::p, comp scrollPaneCustomPalette::l:p::p, comp panel6::l:::p}, space ::383:x, comp scrollPanePalettes:::p::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {seq {comp panel5:::p::p, space :::p, comp panel6:::p::p, space :::x, comp scrollPaneCustomPalette:::p::p}, comp scrollPanePalettes::::458:x}, space :::p}}"
+				} ) {
+					name: "tabPalette"
+					"preferredSize": new java.awt.Dimension( 1024, 180 )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPanePalettes"
+						"preferredSize": new java.awt.Dimension( 272, 461 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "imgPalettes"
+							"verticalAlignment": 1
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPaneCustomPalette"
+						"preferredSize": new java.awt.Dimension( 344, 314 )
+						add( new FormComponent( "javax.swing.JTextArea" ) {
+							name: "txtCustomPalette"
+							"enabled": false
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
+						"rows": 3
+					} ) {
+						name: "panel5"
+						"preferredSize": new java.awt.Dimension( 241, 76 )
+						add( new FormComponent( "javax.swing.JRadioButton" ) {
+							name: "rdbSinglePalette"
+							"text": "Single Palette"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "disableCustomPaletteText", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JRadioButton" ) {
+							name: "rdbOptimizedPalettes"
+							"text": "Optimize for Multple Palettes"
+							"selected": true
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "disableCustomPaletteText", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JRadioButton" ) {
+							name: "rdbCustomPalette"
+							"text": "Custom Palette"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "enableCustomPaletteText", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
+						"rows": 2
+					} ) {
+						name: "panel6"
+						"preferredSize": new java.awt.Dimension( 309, 49 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label6"
+							"text": "Custom Palette (Advanced!)"
+							"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label7"
+							"text": "- You can use multiple palettes.. (palette1)(palette2)"
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Palette"
+				} )
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": "Graphics Format"
+					"visible": false
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menu8"
+						"text": "Sega Master System`"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem2"
+							"text": "Mode 4"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuChangeToMode4", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem3"
+							"text": "Graphics 1"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuChangeToMode0", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem4"
+							"text": "Graphics 2"
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem5"
+							"text": "Multicolor"
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "menu9"
+						"text": "Sega Megadrive"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "menuItem6"
+							"text": "Mode 5"
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu2"
+					"text": "Import"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem7"
+						"text": "Open Image File"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_OpenImageFile", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem8"
+						"text": "Open Image File as Tileset (Advanced)"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_OpenTilesetImage", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem9"
+						"text": "Open Tiled File"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_OpenTiledFile", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu3"
+					"text": "Export"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem10"
+						"text": "Save Nametable"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_SaveNametable", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem11"
+						"text": "Save Tiles"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_SaveTiles", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem12"
+						"text": "Save Palette"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_SavePalette", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem13"
+						"text": "Save Scrolltable"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_SaveScrolltable", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem14"
+						"text": "Save Metatiles"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_SaveMetatiles", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem15"
+						"text": "Save Tiled File"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_SaveTiledFile", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem16"
+						"text": "Batch Export for GSLib"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_BatchExportGSLib", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu4"
+					"text": "Clipboard"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem17"
+						"text": "Send Nametable to Clipboard"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_ToClipboardNametable", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem18"
+						"text": "Send Tiles to Clipboard"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_ToClipboardTiles", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem19"
+						"text": "Send Palette to Clipboard"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_ToClipboardPalette", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem20"
+						"text": "Send Scrolltable to Clipboard"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_ToClipboardScrolltable", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem21"
+						"text": "Send Metatiles to Clipboard"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_ToClipboardMetatiles", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu5"
+					"text": "Quick Save"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem22"
+						"text": "Quick Save Nametable"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_QuickSaveNametable", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem23"
+						"text": "Quick Save Scrolltable"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_QuickSaveScrolltable", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu6"
+					"text": "Help"
+					"visible": false
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem24"
+						"text": "About"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu7"
+					"text": "Misc"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem25"
+						"text": "SMS Multicolor Packed"
+						"visible": false
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_SMSMulticolorPacked", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem26"
+						"text": "Barrel Animation"
+						"visible": false
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_BarrelAnimation", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem27"
+						"text": "Legacy Animation"
+						"visible": false
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_LegacyAnimation", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem28"
+						"text": "Pixel 3D"
+						"visible": false
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_Pixel3D", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+						name: "cbMenuChangeLookAndFeel"
+						"text": "Use Native Look & Feel"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu_ChangeLookAndFeel", true ) )
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 5, 5 )
+			"size": new java.awt.Dimension( 1025, 625 )
+		} )
+	}
+}

@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'psidum.ugt'
+version = '0.17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.beust:jcommander:1.82'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'psidum.ugt.Main',
+                'Build-Timestamp': new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
+                'Created-By'     : "Gradle ${gradle.gradleVersion}",
+                'Build-Jdk'      : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                'Build-OS'       : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}"
+        )
+    }
+    from configurations.runtimeClasspath.collect { zipTree(it) }
+}
+
+test {
+    useJUnitPlatform()
+}
