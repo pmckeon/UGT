@@ -3,12 +3,14 @@ package psidum.ugt.model;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,7 +30,7 @@ public class TiledFile {
         fileChooser.setDialogTitle("Open Tiled File");
         fileChooser.setFileFilter(new FileNameExtensionFilter(
                 "tiled map (*.tmx)", "tmx"));
-        if(fileChooser.showOpenDialog(frame) != JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showOpenDialog(frame) != JFileChooser.APPROVE_OPTION) {
             return null;
         }
         File tiledDocument = fileChooser.getSelectedFile();
@@ -98,7 +100,7 @@ public class TiledFile {
             for (int x = 0; x < widthInTiles; x++) {
                 long id = gslTileLayer[tileCounter++] - startID + 1L;
                 if ((id & 0xFFFFFFFF80000000L) == 0L && (id & 0x40000000L) == 0L) {
-                    int intID = (int)(id & 0xFFFFL);
+                    int intID = (int) (id & 0xFFFFL);
                     Tile tile = tileset.tilesByID.get(Integer.valueOf(intID - 1));
                     if (tile == null)
                         throw new UGTException("Error: Tiled file references a tile id beyond the size of included tiles!");
@@ -110,7 +112,7 @@ public class TiledFile {
                         b++;
                     }
                 } else if ((id & 0xFFFFFFFF80000000L) == 0L && (id & 0x40000000L) != 0L) {
-                    int intID = (int)(id & 0xFFFFL);
+                    int intID = (int) (id & 0xFFFFL);
                     Tile tile = tileset.tilesByID.get(Integer.valueOf(intID - 1));
                     if (tile == null)
                         throw new UGTException("Error: Tiled file references a tile id beyond the size of included tiles!");
@@ -119,7 +121,7 @@ public class TiledFile {
                             imageData[pixelCounter++] = tile.getPixelsAsRGB()[row + pixel];
                     }
                 } else if ((id & 0xFFFFFFFF80000000L) != 0L && (id & 0x40000000L) != 0L) {
-                    int intID = (int)(id & 0xFFFFL);
+                    int intID = (int) (id & 0xFFFFL);
                     Tile tile = tileset.tilesByID.get(Integer.valueOf(intID - 1));
                     if (tile == null)
                         throw new UGTException("Error: Tiled file references a tile id beyond the size of included tiles!");
@@ -128,7 +130,7 @@ public class TiledFile {
                             imageData[pixelCounter++] = tile.getPixelsAsRGB()[row + pixel];
                     }
                 } else if ((id & 0xFFFFFFFF80000000L) != 0L && (id & 0x40000000L) == 0L) {
-                    int intID = (int)(id & 0xFFFFL);
+                    int intID = (int) (id & 0xFFFFL);
                     Tile tile = tileset.tilesByID.get(Integer.valueOf(intID - 1));
                     if (tile == null)
                         throw new UGTException("Error: Tiled file references a tile id beyond the size of included tiles!");
@@ -151,7 +153,7 @@ public class TiledFile {
             }
         }
         BufferedImage image = new BufferedImage(widthInTiles * 8, heightInTiles * 8, 2);
-        int[] imgData = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+        int[] imgData = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
         System.arraycopy(imageDataFixed, 0, imgData, 0, imageDataFixed.length);
         return image;
     }
@@ -162,20 +164,19 @@ public class TiledFile {
             NodeList tilesets = this.xmlDoc.getElementsByTagName("tileset");
             for (int i = 0; i < tilesets.getLength(); i++) {
                 Node currenttileset = tilesets.item(i);
-                if (currenttileset.getNodeType() == 1) {
-                    Element element = (Element)currenttileset;
+                if (currenttileset.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) currenttileset;
                     String name = element.getAttribute("name");
-                    if (element.getAttribute("name").equals("GSLTiles")) {
-                        String imageLocation = String.valueOf(this.file.getAbsoluteFile().getParent()) + "\\";
-                        Element imageElement = (Element)element.getElementsByTagName("image").item(0);
-                        imageLocation = String.valueOf(imageLocation) + imageElement.getAttribute("source");
-                        importImage = ImageIO.read(new File(imageLocation));
+                    if (name.equals("GSLTiles")) {
+                        Element imageElement = (Element) element.getElementsByTagName("image").item(0);
+                        File imageLocation = new File(this.file.getAbsoluteFile().getParent(), imageElement.getAttribute("source"));
+                        importImage = ImageIO.read(imageLocation);
                     }
                 }
             }
             if (importImage == null)
-                throw new UGTException("Error: tileset image associated with tiled file could not be opened!");
-        } catch (Exception e) {
+                throw new UGTException("Error: 'GSLTiles' tileset missing from tiled file!");
+        } catch (IOException e) {
             throw new UGTException("Error: tileset image associated with tiled file could not be opened!");
         }
         return importImage;
@@ -187,17 +188,17 @@ public class TiledFile {
             NodeList tilesetNodes = this.xmlDoc.getElementsByTagName("tileset");
             Element gseTileset = null;
             for (int i = 0; i < tilesetNodes.getLength(); i++) {
-                String test = ((Element)tilesetNodes.item(i)).getAttribute("name");
-                if (((Element)tilesetNodes.item(i)).getAttribute("name").equals("GSLTiles")) {
-                    gseTileset = (Element)tilesetNodes.item(i);
+                String test = ((Element) tilesetNodes.item(i)).getAttribute("name");
+                if (test.equals("GSLTiles")) {
+                    gseTileset = (Element) tilesetNodes.item(i);
                     break;
                 }
             }
             if (gseTileset == null)
                 throw new UGTException("Error: internally stored XML Doc is malformed!");
             gseTileset.setAttribute("tilecount", String.valueOf(tilesetProcessedImage.getHeight() / 8 * 16));
-            ((Element)gseTileset.getElementsByTagName("image").item(0)).setAttribute("source", tileImageFile.getName());
-            ((Element)gseTileset.getElementsByTagName("image").item(0)).setAttribute("height",
+            ((Element) gseTileset.getElementsByTagName("image").item(0)).setAttribute("source", tileImageFile.getName());
+            ((Element) gseTileset.getElementsByTagName("image").item(0)).setAttribute("height",
                     String.valueOf(tilesetProcessedImage.getHeight()));
         } catch (Exception e) {
             throw new UGTException("Error: could not construct tiled xml doc. Issue with tileset image!");
@@ -210,7 +211,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLTileLayer")) {
                     gslTileLayer = element;
                     break;
@@ -241,7 +242,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLTileLayer")) {
                     gslTileLayer = element;
                     break;
@@ -268,7 +269,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLPriorityLayer")) {
                     gslPriorityLayer = element;
                     break;
@@ -299,7 +300,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLPriorityLayer")) {
                     gslTileLayer = element;
                     break;
@@ -324,7 +325,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLCollisionLayer")) {
                     gslCollisionLayer = element;
                     break;
@@ -355,7 +356,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLCollisionLayer")) {
                     gslTileLayer = element;
                     break;
@@ -380,7 +381,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLMetaLayer")) {
                     gslMetaLayer = element;
                     break;
@@ -411,7 +412,7 @@ public class TiledFile {
         for (int i = 0; i < layers.getLength(); i++) {
             Node layer = layers.item(i);
             if (layer.getNodeType() == 1) {
-                Element element = (Element)layer;
+                Element element = (Element) layer;
                 if (element.getAttribute("name").equals("GSLMetaLayer")) {
                     gslTileLayer = element;
                     break;
@@ -437,7 +438,7 @@ public class TiledFile {
             for (int i = 0; i < tilesets.getLength(); i++) {
                 Node currenttileset = tilesets.item(i);
                 if (currenttileset.getNodeType() == 1) {
-                    Element element = (Element)currenttileset;
+                    Element element = (Element) currenttileset;
                     if (element.getAttribute("name").equals("GSLTiles"))
                         return Integer.parseInt(element.getAttribute("firstgid"));
                 }
@@ -456,7 +457,7 @@ public class TiledFile {
             for (int i = 0; i < tilesets.getLength(); i++) {
                 Node currenttileset = tilesets.item(i);
                 if (currenttileset.getNodeType() == 1) {
-                    Element element = (Element)currenttileset;
+                    Element element = (Element) currenttileset;
                     if (element.getAttribute("name").equals("GSLMeta"))
                         return Integer.parseInt(element.getAttribute("firstgid"));
                 }
@@ -472,7 +473,7 @@ public class TiledFile {
     public int getMapWidth() throws UGTException {
         try {
             NodeList map = this.xmlDoc.getElementsByTagName("map");
-            return Integer.parseInt(((Element)map.item(0)).getAttribute("width"));
+            return Integer.parseInt(((Element) map.item(0)).getAttribute("width"));
         } catch (NumberFormatException e) {
             throw new UGTException("Error: tiled document has an error, map-width property is invalid!");
         }
@@ -480,13 +481,13 @@ public class TiledFile {
 
     public void setMapWidth(int width) {
         NodeList map = this.xmlDoc.getElementsByTagName("map");
-        ((Element)map.item(0)).setAttribute("width", String.valueOf(width));
+        ((Element) map.item(0)).setAttribute("width", String.valueOf(width));
     }
 
     public int getMapHeight() throws UGTException {
         try {
             NodeList map = this.xmlDoc.getElementsByTagName("map");
-            return Integer.parseInt(((Element)map.item(0)).getAttribute("height"));
+            return Integer.parseInt(((Element) map.item(0)).getAttribute("height"));
         } catch (NumberFormatException e) {
             throw new UGTException("Error: tiled document has an error, map-height property is invalid!");
         }
@@ -494,7 +495,7 @@ public class TiledFile {
 
     public void setMapHeight(int height) {
         NodeList map = this.xmlDoc.getElementsByTagName("map");
-        ((Element)map.item(0)).setAttribute("height", String.valueOf(height));
+        ((Element) map.item(0)).setAttribute("height", String.valueOf(height));
     }
 
     public Document getXmlDoc() {

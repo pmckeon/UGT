@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.imageio.ImageIO;
@@ -988,7 +990,7 @@ public class UGTMainForm extends JFrame {
         byte[] data = null;
         try {
             data = ((TilesetExportAsBlock)GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(this.tileset.getTiles());
-            DataOutputStream stream = new DataOutputStream(new FileOutputStream(selectedDirectory.getAbsolutePath() + "/" + baseName + "_tiles.bin"));
+            DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(selectedDirectory.getAbsolutePath(), baseName + "_tiles.bin")));
             stream.write(data);
             stream.close();
         } catch (IOException e) {
@@ -999,7 +1001,7 @@ public class UGTMainForm extends JFrame {
         }
         data = ((PaletteExportAsBlock)GraphicFormatManager.currentGraphicFormat).exportPalettesAsBinaryBlock(this.tileset.getPalettes());
         try {
-            DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(selectedDirectory.getAbsolutePath()) + "/" + baseName + "_palette.bin"));
+            DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(selectedDirectory.getAbsolutePath(), baseName + "_palette.bin")));
             stream.write(data);
             stream.close();
         } catch (IOException e) {
@@ -1009,7 +1011,7 @@ public class UGTMainForm extends JFrame {
         }
         data = ((ScrolltableExport)GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(this.scrolltable);
         try {
-            DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(selectedDirectory.getAbsolutePath()) + "/" + baseName + "_scrolltable.bin"));
+            DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(selectedDirectory.getAbsolutePath(), baseName + "_scrolltable.bin")));
             stream.write(data);
             stream.close();
         } catch (IOException e) {
@@ -1019,7 +1021,7 @@ public class UGTMainForm extends JFrame {
         }
         data = ((MetatileSetExport)GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(this.scrolltable.getMetatileSet());
         try {
-            DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(selectedDirectory.getAbsolutePath()) + "/" + baseName + "_metatiles.bin"));
+            DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(selectedDirectory.getAbsolutePath(), baseName + "_metatiles.bin")));
             stream.write(data);
             stream.close();
         } catch (IOException e) {
@@ -1522,10 +1524,12 @@ public class UGTMainForm extends JFrame {
             if (enable) {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 SwingUtilities.updateComponentTreeUI(this);
+                SwingUtilities.updateComponentTreeUI(fileChooser);
                 this.pack();
             } else {
                 UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
                 SwingUtilities.updateComponentTreeUI(this);
+                SwingUtilities.updateComponentTreeUI(fileChooser);
                 this.pack();
             }
         } catch (Exception e) {}

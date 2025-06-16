@@ -5,6 +5,8 @@ import com.beust.jcommander.JCommander;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 
@@ -64,7 +66,7 @@ public class Main {
                             saveConfig();
                         }
                     });
-                    form.setTitle("UGT by Psidum - v0.17");
+                    form.setTitle("UGT by Psidum - v0.18");
                     form.setVisible(true);
                 }
             });
@@ -130,7 +132,7 @@ public class Main {
             byte[] data = null;
             try {
                 data = ((TilesetExportAsBlock) GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(tileset.getTiles());
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_tiles.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_tiles.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -139,7 +141,7 @@ public class Main {
             }
             data = ((PaletteExportAsBlock) GraphicFormatManager.currentGraphicFormat).exportPalettesAsBinaryBlock(tileset.getPalettes());
             try {
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_palette.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_palette.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -148,7 +150,7 @@ public class Main {
             }
             data = ((ScrolltableExport) GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(scrolltable);
             try {
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_scrolltable.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_scrolltable.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -157,7 +159,7 @@ public class Main {
             }
             data = ((MetatileSetExport) GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(scrolltable.getMetatileSet());
             try {
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_metatiles.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_metatiles.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -201,7 +203,7 @@ public class Main {
             byte[] data = null;
             try {
                 data = ((TilesetExportAsBlock) GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(tileset.getTiles());
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_tiles.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_tiles.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -210,7 +212,7 @@ public class Main {
             }
             data = ((PaletteExportAsBlock) GraphicFormatManager.currentGraphicFormat).exportPalettesAsBinaryBlock(tileset.getPalettes());
             try {
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_palette.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_palette.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -219,7 +221,7 @@ public class Main {
             }
             data = ((ScrolltableExport) GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(scrolltable);
             try {
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_scrolltable.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_scrolltable.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -228,7 +230,7 @@ public class Main {
             }
             data = ((MetatileSetExport) GraphicFormatManager.currentGraphicFormat).exportAsBinaryBlock(scrolltable.getMetatileSet());
             try {
-                DataOutputStream stream = new DataOutputStream(new FileOutputStream(String.valueOf(destination) + "/" + baseName + "_metatiles.bin"));
+                DataOutputStream stream = new DataOutputStream(Files.newOutputStream(Paths.get(destination, baseName + "_metatiles.bin")));
                 stream.write(data);
                 stream.close();
             } catch (IOException e) {
@@ -242,7 +244,7 @@ public class Main {
         Properties prop = new Properties();
         OutputStream output = null;
         try {
-            output = new FileOutputStream("config.properties");
+            output = Files.newOutputStream(Paths.get("config.properties"));
             prop.setProperty("SMSMode4_ByteLineAffix", GraphicFormatManager.graphicFormats[0][0].getByteLineAffix());
             prop.setProperty("SMSMode4_ByteValueAffix", GraphicFormatManager.graphicFormats[0][0].getByteValueAffix());
             prop.setProperty("SMSMode4_WordLineAffix", GraphicFormatManager.graphicFormats[0][0].getWordLineAffix());
