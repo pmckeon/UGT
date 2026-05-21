@@ -31,6 +31,7 @@ public class Scrolltable {
         NametableExportAsBlock nametableExporter = (NametableExportAsBlock)graphicFormat;
         Map<HashKey, Metatile> metatileLookup = new HashMap<>();
         int collisionCount = 0;
+        int index = 1; // test for sverx
         for (int y = 0; y < nametable.getHeightInTiles(); y += 2) {
             for (int x = 0; x < nametable.getWidthInTiles(); x += 2) {
                 int[] metatileEntries = new int[metatileWidth * metatileHeight];
@@ -57,6 +58,7 @@ public class Scrolltable {
                 Metatile metatile = metatileLookup.get(hashKey);
                 if (metatile == null) {
                     metatile = new Metatile(metatileEntries, priorityInfo, metaDataInfo, metatileKeyData[metatileWidth * metatileHeight], tileVariants);
+                    metatile.setId(index++); // Test for regression
                     metatileLookup.put(hashKey, metatile);
                     if (metatileKeyData[metatileWidth * metatileHeight] != 0)
                         collisionCount++;
@@ -66,9 +68,9 @@ public class Scrolltable {
         }
         metatiles = new ArrayList<>(metatileLookup.values());
         metatiles.sort(Collections.reverseOrder(Comparator.comparing(Metatile::getCollision)));
-        int index = 1;
-        for (Metatile metatile : metatiles)
-            metatile.setId(index++);
+        // int index = 1; // Test for regression
+        //for (Metatile metatile : metatiles)
+        //    metatile.setId(index++);
         this.metatileSet = new MetatileSet(metatiles, collisionCount + 1, metatileWidth, metatileHeight);
         StringBuilder output = new StringBuilder();
     }
