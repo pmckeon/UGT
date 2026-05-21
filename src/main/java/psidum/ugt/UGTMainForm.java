@@ -866,7 +866,7 @@ public class UGTMainForm extends JFrame {
                 break;
             case "png file (*.png)":
                 try {
-                    ImageIO.write(GeneralUtil.resample(this.scrolltable.getMetatileSet().getMetatileImage(), 0), "png", file);
+                    ImageIO.write(GeneralUtil.resample(this.scrolltable.getMetatileSet().getMetatileImage(), 1), "png", file);
                 } catch (IOException e) {
                     this.lblError.setText("Error: image could not be saved! " + e.getMessage());
                     Toolkit.getDefaultToolkit().beep();
